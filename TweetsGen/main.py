@@ -1,3 +1,4 @@
+# pip install --upgrade langchain langchain-openai langchain-google-genai streamlit
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain import LLMChain
 from langchain import PromptTemplate
@@ -5,7 +6,7 @@ from langchain import PromptTemplate
 import streamlit as st
 import os
 
-os.environ['GOOGLE_API_KEY'] = st.secrets['GOOGLE_API_KEY']
+os.environ['GOOGLE_API_KEY'] =  'st.secrets['GOOGLE_API_KEY'] '
 
 # Create prompt template for generating tweets
 
@@ -21,17 +22,17 @@ gemini_model = ChatGoogleGenerativeAI(model = "gemini-1.5-flash-latest")
 tweet_chain = tweet_prompt | gemini_model
 
 
-import streamlit as st
 
-st.header("Tweet Generator - SATVIK")
+st.title("Ganga Tweet Genarator")
+st.header("Generate tweets for a given topic using Generative AI")
 
-st.subheader("Generate tweets using Generative AI")
+topic = st.text_input("Enter the topic you want to generate tweets for")
+num_tweets = st.slider("Number of tweets to generate", 1, 10, 5)
 
-topic = st.text_input("Topic")
-
-number = st.number_input("Number of tweets", min_value = 1, max_value = 10, value = 1, step = 1)
-
-if st.button("Generate"):
-    tweets = tweet_chain.invoke({"number" : number, "topic" : topic})
+if st.button("Generate Tweets"):
+    tweets = tweet_chain.invoke({"number" : num_tweets, "topic" : topic})
     st.write(tweets.content)
-    
+
+
+
+
